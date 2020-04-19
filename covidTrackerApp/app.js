@@ -1,4 +1,29 @@
+// instantiate Covd class
+const apiObj = new Covid
+// instantiate ui class
+const ui = new VirusUI
+
+// get input field
 const getNation = document.getElementById("nation");
+// add a key up event on input
 getNation.addEventListener("keyup", (e) => {
-    console.log(e.target.value);
-})
+    text = e.target.value;
+    if (text) {
+        // apiObj.getUservalue() -- is a promise so use then() to get data
+        apiObj.getUserValue(text)
+        .then(data => {
+            // if no data exist, here length is array property
+            if(data.getJson.length === 0){
+                // show alerts
+                console.log("not found")
+            }else{
+                // show profile
+                ui.CountryProfile(data.getJson);
+            }
+        })
+        // if no input,
+    } else {
+        // clear current profile
+    }
+});
+

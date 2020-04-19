@@ -9,10 +9,9 @@ class VirusUI{
         // provide html template to element
         
         userData.forEach(e => {
-            console.log(e.Date);
-            let q = Math.round(new Date(e.Date).getTime()/1000);
+            const q = new Date(e.Date);
         this.currentStatus.innerHTML = 
-        `
+        `   
         <div class="row">
             <div class="col col-md-12">
                 <div class="card card-body text-center">
@@ -25,7 +24,7 @@ class VirusUI{
                     <span class="d-block text-center h3 text-success">${e.Recovered}</span><br>
                     <h2>Active Cases</h2>
                     <span class="d-block text-center text-warning h3">${e.Active}</span><br>
-                    <span class="text-center font-weight-normal">Last updated on ${new Date(q)}</span>
+                    <span class="text-center font-weight-normal">Last updated on ${q.toLocaleString()}</span>
                 </div>
             </div>
         </div>

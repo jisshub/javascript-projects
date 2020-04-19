@@ -13,12 +13,12 @@ getNation.addEventListener("keyup", (e) => {
         apiObj.getUserValue(text)
         .then(data => {
             // if no data exist, here length is array property
-            if(data.getJson.length === 0){
+            if(data.lastData.length === 0){
                 // show alerts
                 console.log("not found")
             }else{
                 // show profile
-                ui.CountryProfile(data.getJson);
+                ui.CountryProfile(data.lastData);
             }
         })
         // if no input,

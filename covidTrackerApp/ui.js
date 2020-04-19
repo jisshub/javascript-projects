@@ -3,6 +3,7 @@ class VirusUI{
         // set a property for country profile.
         // get element with given id.
         this.currentStatus = document.getElementById("country-profile");
+        this.containerEl = document.getElementById("searchContainer");
 
     }
     CountryProfile(userData){
@@ -28,12 +29,35 @@ class VirusUI{
                 </div>
             </div>
         </div>
-        `
-
-        })
-        
-      
+        `})
     }
+    showAlerts(message, alertStyles){
+        // call deleteAerts()
+        this.deleteAlertsFrist();
+        // create a div element
+        const crDiv = document.createElement("div");
+        // add message 
+        crDiv.textContent = message;
+        // add classes
+        crDiv.classList = alertStyles;
+        // find element before we want to insert the alert box
+        const getCard = document.getElementById("search")
+        // use insertBefore(newnode, referencenode) to insert new node before reference node
+        this.containerEl.insertBefore(crDiv, getCard);
+    }
+    deleteAlertsFrist(){
+        // find element woth alert class
+        const alertBox = document.querySelector(".alert");
+        if (alertBox) {
+            // remove that element
+            alertBox.remove();
+        }
+    }
+    clearAllProfiles(){
+        this.currentStatus.innerHTML = "";
+    }
+    
+    
 }
 
 

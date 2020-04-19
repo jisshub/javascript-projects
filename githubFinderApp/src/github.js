@@ -1,11 +1,28 @@
 export class Github{
     constructor(){
-        this.client_id ="6d152b3b20379347b792";
-        this.client_secret = "0f6c7eaeef6c1433e273831f0e229e65eea5630b";
-
+        this.client_id ="4cbf3ffa9d30ca379ea2";
+        this.client_secret = "a7c7119d9077d7e595d87d02faf6e1a4b8b33b1c";
+        this.repos_count = 5;
+        this.repos_sort = "created: asc";
     }
     // to fetch user profile and user repo.
-    async geUser(){
+    async getUser(userValue){
+        const userProfile = await fetch(`https://api.github.com/${userValue}?
+                            client_id=${this.client_id}&client_secret=${this.client_secret}`);
 
+        // get github user repo
+        const userRepos = await fetch(`https://api.github.com/${userValue}/repos?
+        per_page=${this.repos_count}&sort=${this.repos_sort}&client_id=${this.client_id}&client_secret=${this.client_secret}`)
+
+        // get profile data 
+        const profile = await userProfile.json();
+
+        const repos = await userRepos.json();
+
+        return{
+            profile,
+            repos
+        }
+        
     }
 }

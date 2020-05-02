@@ -18,3 +18,7 @@ Event: add book book
 Event: remove book
 
 
+
+
+DOMContentLoaded event fires when the initial HTML document has been completely loaded and parsed
+

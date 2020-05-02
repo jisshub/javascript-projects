@@ -25,7 +25,7 @@ class UI{
                 title: 'Book Two',
                 author: 'John james',
                 isbn: '442333'
-            }
+            },
         ]
         const books = storedData;
         // iterate thru all objects in array
@@ -34,14 +34,26 @@ class UI{
             UI.addBooks(eachBook);
         })
     }
+    // get book object
     static addBooks(getBook){
         // add each book to table as row - grab table body id.
-        getTbBody = document.getElementById("bookList");
-        createRow = document.createElement('tr');
-        getTbBody.appendChild(createRow);
-        
-
+        // append a tr child to it 
+        let trTag = document.getElementById("bookList").appendChild(document.createElement("tr"));
+        // add innerhtml to tr tag
+        trTag.innerHTML = `
+            <td>${getBook.title}</td>
+            <td>${getBook.author}</td>
+            <td>${getBook.isbn}</td>
+            <td><a href="#" class="btn btn-danger btn-sm" id="deleteThisRow"></a></td>
+        `
     }
+    // while looping child element tr is appended at bottom
 }
 
-// console.log(UI.displayBooks())
+
+// Events
+
+// use DomContentLoaded event fires when page is loaded.
+document.addEventListener("DOMContentLoaded", UI.displayBooks);
+
+

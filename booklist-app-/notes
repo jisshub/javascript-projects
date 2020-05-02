@@ -1,0 +1,20 @@
+Classes
+---------
+book class - 
+    here v instatiate new book
+
+UI class - 
+    this class purpose to handle the UI.
+
+
+Store class
+  - used to store the data  in local storage.
+    ie to handle storage.
+
+Events
+--------
+Event: display books
+Event: add book book
+Event: remove book
+
+

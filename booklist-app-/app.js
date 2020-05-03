@@ -10,9 +10,7 @@ class Book{
 
 class UI{
     // define static methods, since no object instantiation here, so use static method that depends on class.
-    static removeBooks(){
-        // console.log("fdsfs")
-    }
+
     static displayBooks(){
         // define a dummy data
         // const storedData = [
@@ -80,15 +78,15 @@ class UI{
         // append row to container as second child - use insertBefore
         getContainer.insertBefore(createRow, document.getElementById("secRow"));
 
+
+        // remove alert in 3secs. use setInterval().
+        // here v remove its parent of parent element.
+        setInterval(()=> {
+            document.querySelector('.alert').parentElement.parentElement.remove();
+        }, 3000);
+
     }
 
-    // remove alerts if it is already there
-    static removeAlerts(){
-        const alertBox = document.querySelector(".alert");
-        if (alertBox) {
-            alertBox.parentElement.parentElement.remove();
-        } 
-    }
 
     // clear inouts field
     static clearFields(){
@@ -101,6 +99,45 @@ class UI{
 
 }
 
+// Store class - store the book data in local storage.
+class Store{
+    static getMyBooks(){
+        let bookObj;
+        // if there is no book object in localStorage
+        if (localStorage.getItem('bookObj') ===  null) {
+            // set an array to bookObj  
+            bookObj = [];
+        } else {
+            // get the book object -> convert json string to json object.
+            bookObj = JSON.parse(localStorage.getItem('bookObj'));
+
+        }
+    // finally return the bookObj
+    return bookObj;
+    }
+
+    // adding a book 
+    static addMyBooks(book){
+        // first get a book from localstorage.
+        // invoke getmyBooks() on Store class.
+        const books = Store.getMyBooks();
+        // push a book to the book Array of objects.
+        books.push(book);
+        // store that books array to localStorage as strings
+        // setItem(key, value)
+        localStorage.setItem('books', JSON.stringify(books));
+    }
+
+    // removing a book - pass isbn
+    static removeMyBooks(isbn){
+        // first get the booksfrom Store class.
+        const books = Store.getMyBooks();
+        // loop thru each book
+        JSON.parse(books).forEach(eachBk => {
+            
+        });
+    }
+}
 
 // Events
 
@@ -123,22 +160,17 @@ document.querySelector("#book-form").addEventListener("submit",
     // inputs r passed as arguments to Book class
     // if all inputs given - instantiate object - invoke addBooks(), else - alerts
     if (title && author && isbn) {
-        // remove alerts if already present
-        UI.removeAlerts();
         // create book object
         const bookObj = new Book(title, author, isbn);
         // invoke addBooks()
         UI.addBooks(bookObj);
         // show alerts
-        UI.showAlerts("alert-success","Book Added Successfully");
-
-        
+        UI.showAlerts("alert-success","Book Added Successfully");        
 
     } else {
-        // invoke removeAlerts()
-        UI.removeAlerts();
         // show alerts
         UI.showAlerts("alert-danger", "Please fill in all the fields");
+        
     }
     // invoke clearFields function
     UI.clearFields();
@@ -152,6 +184,8 @@ document.querySelector("#bookList").addEventListener("click",
 (e) => {
     // e.target mean any element that v click inside the tbody is passed as argument to deleteBook()
     UI.deleteBook(e.target);
+
+    UI.showAlerts("alert-success", "Book Removed");
 })
 
 

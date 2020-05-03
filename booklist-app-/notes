@@ -47,7 +47,26 @@ removing parent of parent Elmeent
 getB.parentElement.parentElement.remove();
 
 
+    // remove alert in 3secs. use setInterval()
+    setInterval(()=> {
+        document.querySelector('.alert').remove();
+    }, 3000);
 
 
+LocalStorage 
+---------------
+- to store the data persistent.
+- store data as key:value pairs, so we pass data in form of object.
+- but localstorage didnt accept object types
+- so first have to stringify it to make string 
+- and pass that string data to it.
+
+methods
+---------
+LocalStorage.getItem();
+    -to get an item from localstorage.
+
+v get items as strings from LocalStorage. so have 
+to parse it to json object using JSON.parse();
 
 

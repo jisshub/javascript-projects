@@ -18,7 +18,18 @@ Event: add book book
 Event: remove book
 
 
+DOMContentLoaded 
+--------------------
+this event fires when  HTML document has been completely loaded and parsed.
+
+eg: 
+    document.addEvenListener('DOMContentLoaded', function());
 
 
-DOMContentLoaded event fires when the initial HTML document has been completely loaded and parsed
+
+
+
+
+
+
 

@@ -69,4 +69,8 @@ LocalStorage.getItem();
 v get items as strings from LocalStorage. so have 
 to parse it to json object using JSON.parse();
 
+> to get the previous Element of current element
+    - use parentElementSibling() on the cuuremnt element
+
+    
 

@@ -12,25 +12,13 @@ class UI{
     // define static methods, since no object instantiation here, so use static method that depends on class.
 
     static displayBooks(){
-        // define a dummy data
-        // const storedData = [
-        //     {
-        //         title: 'Book One',
-        //         author: 'John Doe',
-        //         isbn: '442343'
-        //     },
-        //     {
-        //         title: 'Book Two',
-        //         author: 'John james',
-        //         isbn: '442333'
-        //     },
-        // ]
-        // const books = storedData;
-        // // iterate thru all objects in array
-        // books.forEach((eachBook) =>{
-        //     // call addBooks() and pass book object
-        //     UI.addBooks(eachBook);
-        // })
+      
+        const books = Store.getMyBooks();
+        // iterate thru all objects in array
+        books.forEach((eachBook) =>{
+            // call addBooks() and pass book object
+            UI.addBooks(eachBook);
+        })
     }
     // get book object
     static addBooks(getBook){
@@ -84,7 +72,6 @@ class UI{
         setInterval(()=> {
             document.querySelector('.alert').parentElement.parentElement.remove();
         }, 3000);
-
     }
 
 
@@ -133,16 +120,22 @@ class Store{
         // first get the booksfrom Store class.
         const books = Store.getMyBooks();
         // loop thru each book
-        JSON.parse(books).forEach(eachBk => {
-            
+        books.forEach((eachBk, index) => {
+            // whether received isbn and eachBk is same.
+            if( eachBk.isbn === isbn){
+                // then splice book with index
+                books.splice(index, 1);
+            }
         });
+        // reset the localstorage 
+        localStorage.getItem('books', JSON.stringify(books));
     }
 }
 
 // Events
 
 // use DomContentLoadedevent which fires when page is loaded
-document.addEventListener("DOMContentLoaded", UI.displayBooks);
+// document.addEventListener("DOMContentLoaded", UI.displayBooks);
 
 
 // Event: add a book from form inputs - submit event
@@ -164,6 +157,8 @@ document.querySelector("#book-form").addEventListener("submit",
         const bookObj = new Book(title, author, isbn);
         // invoke addBooks()
         UI.addBooks(bookObj);
+        // add bookObj to localStorage
+        Store.addMyBooks(bookObj);
         // show alerts
         UI.showAlerts("alert-success","Book Added Successfully");        
 
@@ -184,6 +179,11 @@ document.querySelector("#bookList").addEventListener("click",
 (e) => {
     // e.target mean any element that v click inside the tbody is passed as argument to deleteBook()
     UI.deleteBook(e.target);
+
+    // remove a book from localstorage
+
+    // pass isbn - get parent of current event object - get its previous element - later get that elements textContent.
+    Store.removeMyBooks(e.target.parentElement.previousElementSibling.textContent);
 
     UI.showAlerts("alert-success", "Book Removed");
 })

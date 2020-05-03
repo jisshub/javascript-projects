@@ -28,6 +28,24 @@ eg:
 
 
 
+checking whether an element contains a class
+-------------------------
+const getB = document.querySelector('.btn')
+if (getB.classList.contains('btn'))
+    { 
+        console.log(true)
+}else
+{
+    console.log(false)
+}
+
+here if button element has class btn then it is true.
+
+
+removing parent of parent Elmeent
+--------------------
+getB.parentElement.parentElement.remove();
+
 
 
 

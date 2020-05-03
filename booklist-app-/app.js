@@ -39,18 +39,60 @@ class UI{
         // add each book to table as row - grab table body id.
         // append a tr child to it 
         let trTag = document.getElementById("bookList").appendChild(document.createElement("tr"));
-        // add innerhtml to tr tag - access each book property
+        // add innerhtml to tr tag - later access each book property
         trTag.innerHTML = `
             <td>${getBook.bookTitle}</td>
             <td>${getBook.bookAuthor}</td>
             <td>${getBook.bookISBN}</td>
-            <td><a href="#" class="btn btn-danger btn-sm" id="deleteThisRow">X</a></td>
-        `
+            <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
+            `
+    }
+
+    // get the targeted Element here
+    static deleteBook(targetEl){
+        // check whether element contains class called 'delete'. ie v r looking for <a>.
+        if(targetEl.classList.contains("delete")){
+            // then removes its parent of parentelement ie. remove tr element. so full row is deleted.
+            targetEl.parentElement.parentElement.remove();
+        }
+    }
+
+    static showAlerts(classType, msg){
+        const getContainer = document.querySelector(".container")
+        // create a row
+        const createRow = document.createElement("div");
+        // add classes as arguments
+        createRow.classList.add("row", "mt-4");
+        // create a column
+        const createCol = document.createElement('div'); 
+        // add classes as arguments
+        createCol.classList.add("col-md-12")    
+        // create alert
+        const alertBox = document.createElement("p");
+        // append textContent
+        alertBox.textContent = msg;
+        // add classes as arguments
+        alertBox.classList.add("lead", "alert", classType);
+        // append to col as child
+        createCol.appendChild(alertBox);
+        // append col to row
+        createRow.appendChild(createCol);
+        // append row to container as second child - use insertBefore
+        getContainer.insertBefore(createRow, document.getElementById("secRow"));
+
+    }
+
+    // remove alerts if it is already there
+    static removeAlerts(){
+        const alertBox = document.querySelector(".alert");
+        if (alertBox) {
+            alertBox.parentElement.parentElement.remove();
+        } 
     }
 
     // clear inouts field
     static clearFields(){
-        // grab ech inout value
+        // grab each inout value
         document.querySelector("#title").value = "";
         document.querySelector("#author").value = "";
         document.querySelector("#isbn").value = "";
@@ -78,25 +120,41 @@ document.querySelector("#book-form").addEventListener("submit",
     const author = document.querySelector("#author").value;
     const isbn = document.querySelector("#isbn").value;
 
-    // once v get the inouts next instantiate a book object of Book Class.
-    const bookObj = new Book(title, author, isbn);
     // inputs r passed as arguments to Book class
+    // if all inputs given - instantiate object - invoke addBooks(), else - alerts
+    if (title && author && isbn) {
+        // remove alerts if already present
+        UI.removeAlerts();
+        // create book object
+        const bookObj = new Book(title, author, isbn);
+        // invoke addBooks()
+        UI.addBooks(bookObj);
+        // show alerts
+        UI.showAlerts("alert-success","Book Added Successfully");
 
-    // add this inputs to table - invoke addBooks() method - pass bookObj.
-    UI.addBooks(bookObj);
+        
 
+    } else {
+        // invoke removeAlerts()
+        UI.removeAlerts();
+        // show alerts
+        UI.showAlerts("alert-danger", "Please fill in all the fields");
+    }
     // invoke clearFields function
     UI.clearFields();
 })  
 
+
 // remove a book
-document.getElementById("deleteThisRow").addEventListener("click",
+// access the tbody with table data
+// call deleteBook function in UI CLASS - pass e.target as argument.
+document.querySelector("#bookList").addEventListener("click",
 (e) => {
-    // prevent event bubbling to parent element
-    e.stopPropagation();
-    // remove the row that event object targets to.
-    e.target.remove();
+    // e.target mean any element that v click inside the tbody is passed as argument to deleteBook()
+    UI.deleteBook(e.target);
 })
+
+
 
 
 

@@ -48,7 +48,7 @@ class UI{
         `
     }
 
-    // clear inouts fields
+    // clear inouts field
     static clearFields(){
         // grab ech inout value
         document.querySelector("#title").value = "";
@@ -90,6 +90,13 @@ document.querySelector("#book-form").addEventListener("submit",
 })  
 
 // remove a book
+document.getElementById("deleteThisRow").addEventListener("click",
+(e) => {
+    // prevent event bubbling to parent element
+    e.stopPropagation();
+    // remove the row that event object targets to.
+    e.target.remove();
+})
 
 
 

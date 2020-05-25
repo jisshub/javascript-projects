@@ -10,4 +10,37 @@ create two js files
 
 > to get that, send the request to current condition api.
 
+get weather api call
+--------------------
+
+const getWeather = async(locId) => {
+    const resourceUrl = "http://dataservice.accuweather.com/currentconditions/v1/";
+    // fetch the resource 
+    const response = await fetch(`${resourceUrl}${locId}?apikey=${apiKey}`);
+
+    if (response.status === 404) {
+        throw new Error("cant fetch the data")
+    } else {
+        const weatherData = await response.json();
+        // get first weather object
+        return weatherData[0];
+    }
+}
+
+call this function with in the getCity() like this,
+
+getCity("delhi")
+.then(data => {
+    const locId = data.Key;  
+    // call getWeather() - pass lcationid
+    getWeather(locId)
+    .then(data => console.log(data));
+})
+.catch(err => console.log(err.message));
+
+
+updating the location-
+-------------------
+
+
 

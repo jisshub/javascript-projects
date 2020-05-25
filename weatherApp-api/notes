@@ -1,0 +1,13 @@
+create two js files
+    - api.js
+    - app.js
+
+> copy the apikey to api.js
+
+> request to the location api - get the information about a city.
+
+> use the key property obtained to get the current consition of the city
+
+> to get that, send the request to current condition api.
+
+

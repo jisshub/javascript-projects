@@ -5,10 +5,12 @@ const getCard = document.getElementById("card-1");
 
 const updateUI = (allData) => {
     const getCity = allData.cityDetails.EnglishName;
-    const weatherDt = allData.weatherDetails.Temperature.Imperial;
-    const valueUnit = `${weatherDt.Value}${weatherDt.Unit}`
+    const weatherDt = allData.weatherDetails;
+    const valueUnit = `${weatherDt.Temperature.Imperial.Value}${weatherDt.Temperature.Imperial.Unit}`
+    const weatherDesc = weatherDt.WeatherText;
     getCard.querySelector('#cityId').textContent = getCity;
     getCard.querySelector('#weatherId').textContent = valueUnit;
+    getCard.querySelector('#descId').textContent = weatherDesc;
 }
 
 const updateCity = async(city) => {

@@ -8,11 +8,14 @@ const updateUI = (allData) => {
     const weatherDt = allData.weatherDetails;
     const valueUnit = `${weatherDt.Temperature.Imperial.Value}${weatherDt.Temperature.Imperial.Unit}`
     const weatherDesc = weatherDt.WeatherText;
+    // EpochTime to local time
+    const getEpoch = new Date(weatherDt.EpochTime).toLocaleTimeString();
+    
     getCard.querySelector('#cityId').textContent = getCity;
     getCard.querySelector('#weatherId').textContent = valueUnit;
     getCard.querySelector('#descId').textContent = weatherDesc;
-}
-
+    getCard.querySelector('#timeId').textContent = getEpoch;
+};
 const updateCity = async(city) => {
     // wait until v get the city object
     const cityDetails = await getCity(city);

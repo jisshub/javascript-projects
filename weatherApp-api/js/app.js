@@ -40,7 +40,7 @@ form.addEventListener("submit", e => {
     // update the city
     updateCity(city)
     .then(data => {
-        // console.log(data);
+        console.log(data);
         
         updateUI(data);
     })

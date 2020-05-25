@@ -2,7 +2,7 @@
 // get reference  to form
 const form = document.querySelector("form");
 const getCard = document.getElementById("card-1");
-
+document.querySelector('.card').style.display = 'none';
 const updateUI = (allData) => {
     const getCity = allData.cityDetails.EnglishName;
     const weatherDt = allData.weatherDetails;
@@ -17,6 +17,7 @@ const updateUI = (allData) => {
     getCard.querySelector('#timeId').textContent = getEpoch;
 };
 const updateCity = async(city) => {
+
     // wait until v get the city object
     const cityDetails = await getCity(city);
     // wait unitl v get the weather object  
@@ -41,7 +42,7 @@ form.addEventListener("submit", e => {
     // location -> name of input field
     const city = form.location.value.trim()    
     form.reset();
-
+    document.querySelector('.card').style.display = 'block';
     // update the city
     updateCity(city)
     .then(data => {

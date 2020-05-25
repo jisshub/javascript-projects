@@ -1,6 +1,6 @@
 // all api functionalities goes here
 
-const apiKey = "taRlrWsDKekf0xBvxsfdNPcteGFQoDYK";
+const apiKey = "zvKA4G7xVFzeZePo6vfNfF183Bp1LWGZ";
 
 // get weather information
 const getWeather = async(locId) => {
@@ -8,7 +8,7 @@ const getWeather = async(locId) => {
     // fetch the resource 
     const response = await fetch(`${resourceUrl}${locId}?apikey=${apiKey}`);
 
-    if (response.status === 404) {
+    if (response.status !== 200) {
         throw new Error("cant fetch the data")
     } else {
         const weatherData = await response.json();

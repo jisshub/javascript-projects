@@ -46,6 +46,7 @@ class TypeWrite {
     setTimeout(() => this.type(), typeSpeed);
   }
 }
+
 document.addEventListener('DOMContentLoaded', () => {
   // grab the text element
   const textElement = document.querySelector('.txt-type');
